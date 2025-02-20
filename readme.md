@@ -1,6 +1,6 @@
 
 <h1 align="center">
-<img src="logo/perpection.png" width="300">
+<img src="logo/perpection.png" width="330">
 </h1>
 
 Overview
