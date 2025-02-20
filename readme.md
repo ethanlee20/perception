@@ -1,6 +1,6 @@
 
 <h1 align="center">
-<img src="logo/sos.gif" width="200">
+<img src="logo/perpection.png">
 </h1>
 
 Overview
