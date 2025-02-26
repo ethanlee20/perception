@@ -3,8 +3,6 @@
 Display tof sensor measurements on the command line. 
 """
 
-from math import cos, sin
-
 from vector_2d import Vector_2D
 
 

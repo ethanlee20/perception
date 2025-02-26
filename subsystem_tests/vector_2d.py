@@ -3,6 +3,9 @@
 2D vector class.
 """
 
+from math import cos, sin
+
+
 class Vector_2D:
     """
     A 2D vector in cartesian coordinates.
