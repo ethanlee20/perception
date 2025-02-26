@@ -13,7 +13,8 @@ from display import Display
 disp = Display(
     width=11, 
     height=11, 
-    resolution=5,
+    resolution=50,
+    empty_char=' ',
 )
 
 steps = 100
