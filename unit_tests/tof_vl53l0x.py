@@ -3,7 +3,7 @@
 Testing stuff for the time of flight sensor.
 
 circuitpython
-Ethan Lee (copied from https://github.com/adafruit/Adafruit_CircuitPython_VL53L0X/blob/main/examples/vl53l0x_simpletest.py)
+(copied from https://github.com/adafruit/Adafruit_CircuitPython_VL53L0X/blob/main/examples/vl53l0x_simpletest.py)
 """
 
 import time
