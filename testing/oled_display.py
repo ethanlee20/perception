@@ -1,15 +1,14 @@
 
 """
-Unit tests for the oled screen.
+OLED Display class.
 
-Written for CircuitPython 9
+Written for CircuitPython 9.
 """
 
 import board
 import displayio
 import i2cdisplaybus
 import adafruit_displayio_ssd1306
-import bitmaptools
 import terminalio
 from adafruit_display_text import label
 
@@ -73,16 +72,16 @@ class OLED_Display:
         self.canvas = displayio.Group()
         self.display.root_group = self.canvas
 
-    def draw_bitmap(self, bitmap):
-        """Draw a bitmap to the screen"""
+    def add_bitmap(self, bitmap):
+        """Add a bitmap to the canvas"""
         tile_grid = displayio.TileGrid(
             bitmap, 
             pixel_shader=self.color_palette, 
         )
         self.canvas.append(tile_grid)
     
-    def draw_text(self, text, x, y):
-        """Draw text to the screen. (In white.)"""
+    def add_text(self, text:str, x:int, y:int):
+        """Add text to the canvas. (In white.)"""
         text_sprite = label.Label(
             terminalio.FONT, 
             text=text, 
@@ -91,33 +90,3 @@ class OLED_Display:
         text_sprite.x = x
         text_sprite.y = y
         self.canvas.append(text_sprite)
-
-
-
-
-
-
-
-
-    # def draw_white_screen(self):
-    #     """Draw a white screen."""
-
-    #     bitmap = displayio.Bitmap(
-    #         self.screen_width, 
-    #         self.screen_height, 
-    #         self.num_colors,
-    #     )
-
-    #     bitmaptools.fill_region(
-    #         bitmap, 
-    #         x1=0, 
-    #         y1=0, 
-    #         x2=self.screen_width, 
-    #         y2=self.screen_height,
-    #         value=self.white_color_index
-    #     )
-
-    #     tile_grid = displayio.TileGrid(
-    #         bitmap, 
-    #         pixel_shader=self.color_palette, 
-    #     )
