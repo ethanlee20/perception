@@ -3,24 +3,21 @@
 // Angle must be in radians.
 
 
-Polar_Vector_2D::Polar_Vector_2D(double r, double ang)
-    :radius{r}, angle{ang}
+Cartesian_Vector_2D Polar_Vector_2D::make_cartesian()
 {
-}
-
-
-double Polar_Vector_2D::calculate_cartesian_x()
-{
-    double result = radius * cos(angle);
+    double x = radius * cos(angle);
+    double y = radius * sin(angle);
+    Cartesian_Vector_2D result {x, y};
     return result;
 }
 
 
-double Polar_Vector_2D::calculate_cartesian_y()
+Quantized_Cartesian_Vector_2D Cartesian_Vector_2D::make_quantized()
 {
-    double result = radius * sin(angle);
+    int x_quant = x; // implicit type narrowing :)
+    int y_quant = y;
+    Quantized_Cartesian_Vector_2D result {x_quant, y_quant};
     return result;
 }
-
 
 

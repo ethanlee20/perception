@@ -62,7 +62,7 @@ class Range_Visualizer:
         (quantized) pixel coordinates.
 
         The position should be given as a 
-        2D vector in Cartesian coordinates.
+        2D vector in polar coordinates.
 
         The origin is the middle of the screen.
         """
