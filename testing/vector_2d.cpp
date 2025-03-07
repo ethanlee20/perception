@@ -2,6 +2,8 @@
 // 2D vector in polar coordinates.
 // Angle must be in radians.
 
+#include "vector_2d.hpp"
+
 
 Cartesian_Vector_2D Polar_Vector_2D::make_cartesian()
 {
