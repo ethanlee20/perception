@@ -20,7 +20,7 @@ class OLED_Display
         void clear();
         void add_pixel(int x, int y);
         void add_text(
-            str text, 
+            String text, 
             int x, 
             int y, 
             int scale = 1
@@ -29,7 +29,7 @@ class OLED_Display
         int get_screen_height(){return screen_height;}
 
     private:
-        const int device_address = 0x3D;
+        const int device_address = 0x3C;
         const int reset_pin = -1;
         const int screen_width = 128;
         const int screen_height = 64;

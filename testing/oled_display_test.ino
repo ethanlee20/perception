@@ -12,7 +12,7 @@ void setup()
     disp.initialize(); // should show Adafruit logo.
     
     // should display "Hello, World!".
-    disp.add_text("Hello, World!", 0, 0);
+    disp.add_text(String{"Hello, World!"}, 0, 0);
     disp.draw(); 
     delay(5000);
 
@@ -26,7 +26,6 @@ void setup()
         {
             disp.add_pixel(col, row);
             disp.draw();
-            delay(20);
         }
     }
     delay(5000);

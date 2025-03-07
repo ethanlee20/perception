@@ -13,7 +13,7 @@ void OLED_Display::initialize()
     bool success = display.begin(
         SSD1306_SWITCHCAPVCC, 
         device_address
-    )
+    );
     if (!success) 
     {
         Serial.println(
@@ -27,6 +27,7 @@ void OLED_Display::initialize()
     display.display(); // adafruit logo screen
     delay(2000);
     display.clearDisplay();
+    display.display();
 }
 
 
@@ -49,11 +50,11 @@ void OLED_Display::add_pixel(int x, int y)
 
 
 void OLED_Display::add_text(
-    str text, int x, int y, int scale = 1
+    String text, int x, int y, int scale = 1
 )
 {
     display.setTextSize(scale);
     display.setTextColor(SSD1306_WHITE);
     display.setCursor(x, y);
-    display.println(F(text));
+    display.println(text);
 }

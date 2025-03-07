@@ -3,6 +3,7 @@
 // Angle must be in radians.
 
 #include "vector_2d.hpp"
+#include <Arduino.h>
 
 
 Cartesian_Vector_2D Polar_Vector_2D::make_cartesian()

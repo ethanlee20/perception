@@ -10,7 +10,7 @@
 class Quantized_Cartesian_Vector_2D 
 {
     public:
-        Cartesian_Vector_2D(int x, int y)
+        Quantized_Cartesian_Vector_2D(int x, int y)
             :x{x}, y{y} {}
         int get_x(){return x;}
         int get_y(){return y;}
@@ -37,10 +37,10 @@ class Cartesian_Vector_2D
 class Polar_Vector_2D 
 {
     public:
-    Polar_Vector_2D(double radius, double angle)
+    Polar_Vector_2D(float radius, float angle)
             :radius{radius}, angle{angle} {}
-        double get_radius() {return radius;}
-        double get_angle() {return angle;}
+        float get_radius() {return radius;}
+        float get_angle() {return angle;}
         Cartesian_Vector_2D make_cartesian();
 
     private:

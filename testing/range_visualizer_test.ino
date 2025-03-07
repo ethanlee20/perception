@@ -14,6 +14,8 @@ void setup()
     // Try on just fake data.
     // Should draw a circle on the display.
 
+    range_viz.initialize();
+
     const double radius {150}; // in mm?
 
     for (
@@ -25,6 +27,8 @@ void setup()
         range_viz.draw_dot_at(radius, angle);
         delay(100);
     }
+    delay(500);
+    range_viz.clear(); // clear screen.
 
 }
   
