@@ -8,8 +8,6 @@
 #include "oled_display.hpp"
 
 
-
-
 void OLED_Display::initialize()
 {
     bool success = display.begin(
