@@ -10,10 +10,11 @@ class ToF_Sensor
         void initialize()
         {
             bool success {sensor.begin()};
-            if (!success)
-            {
-                Serial.println(F("ToF sensor init failed :("));
-                while(1); // stall out
+
+            while (!success) {
+                Serial.println(F("ToF sensor init failed. Tryin again("));
+                delay(100);
+                success = sensor.begin();
             }            
         }
         VL53L0X_RangingMeasurementData_t take_measurement()
