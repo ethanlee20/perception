@@ -4,8 +4,7 @@
 #include "Adafruit_VL53L0X.h"
 
 
-class ToF_Sensor 
-{
+class ToF_Sensor : public Adafruit_VL53L0X {
     public:
         void initialize()
         {
@@ -15,7 +14,7 @@ class ToF_Sensor
                 Serial.println(F("ToF sensor init failed. Tryin again("));
                 delay(100);
                 success = sensor.begin();
-            }            
+            }
         }
 
         VL53L0X_RangingMeasurementData_t take_measurement() const {
@@ -23,6 +22,4 @@ class ToF_Sensor
             sensor.rangingTest(&measurement, false); // debug off
             return measurement;
         }
-    private:
-        Adafruit_VL53L0X sensor {};
 };
