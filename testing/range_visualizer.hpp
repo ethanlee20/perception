@@ -18,8 +18,8 @@ class Range_Visualizer
 
     private:
         OLED_Display display;
-        float max_measured_radius;
-        int max_pixel_radius;
+        const float max_measured_radius; // change name
+        const int max_pixel_radius; // change name
         Quantized_Cartesian_Vector_2D convert_to_pixel_position(
             Polar_Vector_2D measured_position
         );
