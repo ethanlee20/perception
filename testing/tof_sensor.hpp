@@ -17,8 +17,8 @@ class ToF_Sensor
                 success = sensor.begin();
             }            
         }
-        VL53L0X_RangingMeasurementData_t take_measurement()
-        {
+
+        VL53L0X_RangingMeasurementData_t take_measurement() const {
             VL53L0X_RangingMeasurementData_t measurement {};
             sensor.rangingTest(&measurement, false); // debug off
             return measurement;
