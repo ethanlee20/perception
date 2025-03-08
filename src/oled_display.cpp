@@ -50,7 +50,7 @@ void OLED_Display::add_pixel(int x, int y)
 
 
 void OLED_Display::add_text(
-    String text, int x, int y, int scale = 1
+    String text, int x, int y, int scale
 )
 {
     display.setTextSize(scale);

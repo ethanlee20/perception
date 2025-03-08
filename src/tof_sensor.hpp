@@ -6,8 +6,7 @@
 
 class ToF_Sensor : public Adafruit_VL53L0X {
     public:
-        void initialize()
-        {
+        void initialize() {
             bool success {begin()};
 
             while (!success) {
