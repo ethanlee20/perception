@@ -20,5 +20,5 @@ class ToF_Sensor : public Adafruit_VL53L0X {
             VL53L0X_RangingMeasurementData_t measurement {};
             rangingTest(&measurement, false); // debug off
             return measurement;
-        }
+        }            
 };
