@@ -6,12 +6,11 @@
 // #include "oled_display.hpp"
 
 
-Range_Visualizer::Range_Visualizer(
-    float max_measured_radius
-) : max_measured_radius {max_measured_radius}
-{
-    max_pixel_radius = (display.get_screen_height() / 2) - 1;
-}
+Range_Visualizer::Range_Visualizer(const float max_measured_radius) 
+    : display(),
+      max_measured_radius{ max_measured_radius },
+      max_pixel_radius{ (display.get_screen_height() / 2) - 1 } 
+{}
 
 void Range_Visualizer::initialize()
 {

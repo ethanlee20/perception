@@ -11,7 +11,7 @@
 class Range_Visualizer 
 {
     public:
-        Range_Visualizer(float max_measured_radius);
+        Range_Visualizer(const float max_measured_radius);
         void initialize();
         void clear();
         void draw_dot_at(float measured_radius, float measured_angle);
