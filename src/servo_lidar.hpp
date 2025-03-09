@@ -1,8 +1,8 @@
 
 #pragma once
 
-#include <ESP32Servo.h>
-
+// #include <ESP32Servo.h>
+#include <Servo.h>
 
 class ServoLidar : Servo
 {
