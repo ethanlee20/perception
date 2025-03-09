@@ -21,8 +21,12 @@ Neopixel_LED led{led_pin};
 ServoLidar servo_lidar {servo_pin};
 ToF_Sensor tof_sensor {}; //i2c
 
+//random stuff
 const float max_measured_radius {100}; // max visible value we give to the min(width, height) of oled
 Range_Visualizer range_viz {max_measured_radius}; // just put the val here
+unsigned long lastLEDUpdate = 0;
+const unsigned long ledInterval = 2000; // 2000 milliseconds = 2 seconds
+int ledState = 0;
 
 
 void setup() 
@@ -53,33 +57,6 @@ void loop()
         Serial.print("Distance (mm): "); Serial.println(tof_sensor.readRange());
     }
 
-    /*
-    // TOF SENSOR
-    VL53L0X_RangingMeasurementData_t measurement; = tof_sensor.take_measurement();
-    if (measurement.RangeStatus == 0) {  
-        Serial.print("Distance (mm): "); 
-        Serial.println(measurement.RangeMilliMeter);
-        Serial.print("Time: ");
-        Serial.println(measurement.TimeStamp);
-        range_viz.draw_dot_at(measurement.RangeMilliMeter, servo_angle);
-    } 
-    else if (measurement.RangeStatus == 2){
-        Serial.println("Error 2: Signal Fail: The signal check has failed, possibly due to the absence of a target or a failed Range Ignore threshold check.");
-    }
-    else if (measurement.RangeStatus == 3){
-        Serial.println("target too close");
-    }
-    else if (measurement.RangeStatus == 4){
-        Serial.println("Error 4: Phase Fail: The phase check has failed, suggesting issues with the sensor's timing or signal processing.");
-    }
-    else if (measurement.RangeStatus == 5){
-        Serial.println("Error 5: Hardware Fail: A hardware error has occurred during the ranging process.");
-    }
-    else {
-        Serial.println("something went wrong");
-    }
-    */
-   
     //PIEZO BUZZER
 
     //Serial.println(200);
@@ -92,25 +69,38 @@ void loop()
     //piezo_buzzer.PB_ledcWriteTone(500);
     //delay(500);
 
-    // Red
-    led.set_color(255, 0, 0);
-    led.show();
-    // delay(2000);
-
-    // Green
-    led.set_color(0, 255, 0);
-    led.show();
-    // delay(2000);
-
-    // Blue
-    led.set_color(0, 0, 255);
-    led.show();
-    // delay(2000);
-
-    // Clear?
-    led.clear();
-    led.show();
-    // delay(2000);
+    // Check if it's time to change the LED color
+    unsigned long currentMillis = millis();
+    if (currentMillis - lastLEDUpdate >= ledInterval) {
+        lastLEDUpdate = currentMillis;
+        
+        // Cycle through LED states
+        switch(ledState) {
+        case 0:
+            // Set LED to Red
+            led.set_color(255, 0, 0);
+            led.show();
+            break;
+        case 1:
+            // Set LED to Green
+            led.set_color(0, 255, 0);
+            led.show();
+            break;
+        case 2:
+            // Set LED to Blue
+            led.set_color(0, 0, 255);
+            led.show();
+            break;
+        case 3:
+            // Clear LED (turn off)
+            led.clear();
+            led.show();
+            break;
+        }
+        
+        // Update the LED state to the next color
+        ledState = (ledState + 1) % 4;
+    }
 
     delay(1);
     servo_angle += 0.4;
