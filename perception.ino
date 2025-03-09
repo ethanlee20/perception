@@ -34,22 +34,26 @@ void setup()
     Serial.println("Wire began");
 
     Serial.println("initializing");
-    servo_lidar.initialize();
-    Serial.println("Servo done");
-    tof_sensor.initialize();
-    Serial.println("TOF done");
-    range_viz.initialize();
-    Serial.println("Range visualizer done");
-    led.initialize();
-    Serial.println("Neopixel done");
-    // piezo_buzzer.initialize();
-
+    servo_lidar.initialize(); Serial.println("Servo done");
+    tof_sensor.initialize(); Serial.println("TOF done");
+    range_viz.initialize(); Serial.println("Range visualizer done");
+    led.initialize(); Serial.println("Neopixel done");
+    // piezo_buzzer.initialize();Serial.println("Piezo buzzer done");
+    
     servo_lidar.set_speed(servo_speed);
+    tof_sensor.startRangeContinuous();
+
     Serial.println("finished setup");
 }
 
 void loop() 
 {   
+
+    if (tof_sensor.isRangeComplete()) {
+        Serial.print("Distance (mm): "); Serial.println(tof_sensor.readRange());
+    }
+
+    /*
     // TOF SENSOR
     VL53L0X_RangingMeasurementData_t measurement; = tof_sensor.take_measurement();
     if (measurement.RangeStatus == 0) {  
@@ -74,7 +78,8 @@ void loop()
     else {
         Serial.println("something went wrong");
     }
-
+    */
+   
     //PIEZO BUZZER
 
     //Serial.println(200);
