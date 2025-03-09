@@ -28,7 +28,7 @@ void setup()
 
     // Clear?
     led.clear();
-    delay(5000)
+    delay(5000);
 }
   
 
