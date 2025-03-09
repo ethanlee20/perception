@@ -10,7 +10,9 @@ class Neopixel_LED
 {
     public:
         Neopixel_LED(int led_pin)
-            : strip{led_count, led_pin} 
+            : led_pin {led_pin}, strip{led_count, led_pin}
+        {}
+        void initialize() 
         {
             strip.begin();
             strip.show();
@@ -22,6 +24,7 @@ class Neopixel_LED
         void clear(){strip.clear();}
         void show(){strip.show();}
     private:
+        const int led_pin;
         const int led_count{1};
         const int led_index{0};
         Adafruit_NeoPixel strip;
