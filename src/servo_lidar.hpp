@@ -4,10 +4,10 @@
 #include <ESP32Servo.h>
 
 
-class Lidar_Servo : Servo
+class ServoLidar : Servo
 {
     public:
-        Lidar_Servo(const int pin)
+        ServoLidar(const int pin)
             : pin{pin} {}
         void initialize() {attach(pin);}
         void set_speed(int speed) 
