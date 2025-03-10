@@ -33,7 +33,7 @@ class Button
     private:
         const int pin;
         unsigned long last_debounce_time = millis();
-        const unsigned long debounce_delay = 50;
+        const unsigned long debounce_delay = 100;
         bool last_button_state = false;  // current state of the button
 
 };
