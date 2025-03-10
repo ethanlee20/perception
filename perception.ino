@@ -7,8 +7,7 @@
 #include "src/tof_sensor.hpp"
 #include "src/button.hpp"
 #include "src/oled_display.hpp"
-
-// #include "src/piezo_buzzer.hpp"
+#include "src/piezo_buzzer.hpp"
 
 const int piezo_buzzer_pin {3};
 const int servo_pin {5};
@@ -24,9 +23,12 @@ const float max_measured_radius {100}; // max visible value we give to the min(w
 unsigned long lastLEDUpdate = 0;
 const unsigned long ledInterval = 2000; // 2000 milliseconds = 2 seconds
 int ledState = 0;
+int songTones[] = {440, 494, 523, 0, 523, 494, 440};
+unsigned long songDurations[] = {500, 500, 500, 250, 500, 500, 500};
+int songLength = sizeof(songTones) / sizeof(songTones[0]);
 
 
-// PiezoBuzzer piezo_buzzer {piezo_buzzer_pin};
+PiezoBuzzer_Mega piezo_buzzer {piezo_buzzer_pin};
 Button button_center{button_center_pin};
 Button button_down{button_down_pin};
 Button button_up{button_up_pin};
@@ -82,16 +84,19 @@ void loop()
     */
 
     //PIEZO BUZZER
+    /*
+    Serial.println(200);
+    piezo_buzzer.PB_ledcWriteTone(200);
+    delay(500);
+    Serial.println(400);
+    piezo_buzzer.PB_ledcWriteTone(300);
+    delay(500);
+    Serial.println(500);
+    piezo_buzzer.PB_ledcWriteTone(500);
+    delay(500);
+    */
+    piezo_buzzer.play_song_nonblocking(songTones, songDurations, songLength);
 
-    //Serial.println(200);
-    //piezo_buzzer.PB_ledcWriteTone(200);
-    //delay(500);
-    //Serial.println(400);
-    //piezo_buzzer.PB_ledcWriteTone(300);
-    //delay(500);
-    //Serial.println(500);
-    //piezo_buzzer.PB_ledcWriteTone(500);
-    //delay(500);
 
     // Check if it's time to change the LED color
     unsigned long currentMillis = millis();
