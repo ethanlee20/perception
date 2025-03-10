@@ -28,9 +28,11 @@ void setup()
             disp.draw();
         }
     }
-    delay(5000);
+    delay(1000);
 
     disp.clear();
+
+    disp.display_menu(1);
 }
   
 void loop() 
