@@ -5,23 +5,29 @@
 #include "src/range_visualizer.hpp"
 #include "src/servo_lidar.hpp"
 #include "src/tof_sensor.hpp"
+#include "src/button.hpp"
 
 
 // #include "src/piezo_buzzer.hpp"
 
-const int servo_pin {5};
 const int piezo_buzzer_pin {3};
+const int servo_pin {5};
 const int led_pin {6};
+const int button_center_pin {7};
+const int button_down_pin {8};
 
-const int servo_speed {0};
-float servo_angle = {0}; // radians
 
-Neopixel_LED led{led_pin};
+
 // PiezoBuzzer piezo_buzzer {piezo_buzzer_pin};
+Button button{button_pin};
 ServoLidar servo_lidar {servo_pin};
+Neopixel_LED led{led_pin};
 ToF_Sensor tof_sensor {}; //i2c
 
+
 //random stuff
+const int servo_speed {0};
+float servo_angle = {0}; // radians
 const float max_measured_radius {100}; // max visible value we give to the min(width, height) of oled
 Range_Visualizer range_viz {max_measured_radius}; // just put the val here
 unsigned long lastLEDUpdate = 0;
@@ -43,6 +49,7 @@ void setup()
     range_viz.initialize(); Serial.println("Range visualizer done");
     led.initialize(); Serial.println("Neopixel done");
     // piezo_buzzer.initialize();Serial.println("Piezo buzzer done");
+    button.initialize(); Serial.println("Button center")
     
     servo_lidar.set_speed(servo_speed);
     tof_sensor.startRangeContinuous();
@@ -54,8 +61,20 @@ void loop()
 {   
 
     if (tof_sensor.isRangeComplete()) {
-        Serial.print("Distance (mm): "); Serial.println(tof_sensor.readRange());
+        uint16_t distance = tof_sensor.readRange();
+        Serial.print("Distance (mm): "); Serial.println(distance);
+        range_viz.draw_dot_at(distance, servo_angle);
     }
+    /*
+    VL53L0X_RangingMeasurementData_t measurement; = tof_sensor.take_measurement();
+     if (measurement.RangeStatus == 0) {  
+         Serial.print("Distance (mm): "); 
+         Serial.println(measurement.RangeMilliMeter);
+         Serial.print("Time: ");
+         Serial.println(measurement.TimeStamp);
+         range_viz.draw_dot_at(measurement.RangeMilliMeter, servo_angle);
+     } 
+         */
 
     //PIEZO BUZZER
 
