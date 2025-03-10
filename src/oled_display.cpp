@@ -10,16 +10,12 @@
 
 void OLED_Display::initialize()
 {
-    bool success = display.begin(
-        SSD1306_SWITCHCAPVCC, 
-        device_address
-    );
-    if (!success) 
-    {
-        Serial.println(
-            F("OLED display initialization failed :(")
-        );
-        for(;;); // stop (loop forever)
+    bool success = display.begin(SSD1306_SWITCHCAPVCC, device_address);
+
+    while (!success) {
+        Serial.println(F("Display sensor init failed. Tryin again("));
+        delay(100);
+        success = display.begin();
     }
 
     display.cp437(true); // set font
