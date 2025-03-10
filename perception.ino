@@ -19,7 +19,7 @@ const int button_down_pin {8};
 
 
 // PiezoBuzzer piezo_buzzer {piezo_buzzer_pin};
-Button button{button_pin};
+Button button{button_center_pin};
 ServoLidar servo_lidar {servo_pin};
 Neopixel_LED led{led_pin};
 ToF_Sensor tof_sensor {}; //i2c
@@ -49,7 +49,7 @@ void setup()
     range_viz.initialize(); Serial.println("Range visualizer done");
     led.initialize(); Serial.println("Neopixel done");
     // piezo_buzzer.initialize();Serial.println("Piezo buzzer done");
-    button.initialize(); Serial.println("Button center")
+    button.initialize(); Serial.println("Button center");
     
     servo_lidar.set_speed(servo_speed);
     tof_sensor.startRangeContinuous();
