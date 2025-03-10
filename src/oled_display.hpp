@@ -12,20 +12,23 @@
 #include <Adafruit_SSD1306.h>
 
 
-enum Mode {
-    POINTCLOUD,
-    MENU,
-    SAVE_POINTCLOUD,
+enum DisplayMode {
+    RANGEVIZ,
+    MENU
+};
+  
+enum MenuMode {
     CLEAR_POINTCLOUD,
+    SAVED_POINTCLOUD,
     SONG_PLAYLIST,
     STOP_GATHERING,
     MODE_COUNT
-  };
+};
 
 class OLED_Display : public Adafruit_SSD1306 {
     public:
-        bool is_menu = false;
-        enum Mode menu_mode = POINTCLOUD;
+        enum DisplayMode display_mode = RANGEVIZ;
+        enum MenuMode menu_mode = CLEAR_POINTCLOUD;
 
         OLED_Display() : Adafruit_SSD1306(
             screen_width,

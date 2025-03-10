@@ -71,7 +71,6 @@ void OLED_Display::display_menu(const int mode) {
     
     // Write the buffer to the display
     display();
-    is_menu = true;
   }
 
 void OLED_Display::default_display_menu() {

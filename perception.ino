@@ -65,7 +65,7 @@ void setup()
 void loop() 
 {   
 
-    if (tof_sensor.isRangeComplete()) {
+    if (display.display_mode == RANGEVIZ && tof_sensor.isRangeComplete()) {
         uint16_t distance = tof_sensor.readRange();
         Serial.print("Distance (mm): "); Serial.println(distance);
         range_viz.draw_dot_at(distance, servo_angle);
@@ -127,20 +127,26 @@ void loop()
     }
 
     if (button_center.read()){
-        if (!display.is_menu){
+      Serial.println("Center button read");
+        if (display.display_mode == RANGEVIZ){
+            Serial.println("switch from range mode to menu");
             display.display_menu(1);
             led.set_color(0, 0, 255);
+            display.display_mode = MENU;
         }
-        else {
+        else { // we're in menu mode. for now just clear
+            Serial.println("switch from menu mode to range");
+            display.clearDisplay();
+            display.display_mode = RANGEVIZ;
             // select menu mode
         }
     }
-    else if (button_down.read() && display.is_menu){
-        display.menu_mode = static_cast<Mode>((display.menu_mode + 1) % MODE_COUNT);
+    else if (button_down.read() && display.display_mode == MENU){
+        display.menu_mode = ((display.menu_mode + 1) % MODE_COUNT);
         display.display_menu(display.menu_mode);
     }
-    else if (button_up.read() && display.is_menu){
-        display.menu_mode = static_cast<Mode>((display.menu_mode + MODE_COUNT - 1) % MODE_COUNT);
+    else if (button_up.read() && display.display_mode == MENU){
+        display.menu_mode = ((display.menu_mode + MODE_COUNT - 1) % MODE_COUNT);
         display.display_menu(display.menu_mode);
     }
 
