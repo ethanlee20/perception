@@ -126,7 +126,7 @@ void loop()
         ledState = (ledState + 1) % 4;
     }
 
-    if (button_center.read()){
+    if (button_center.read_toggle() && button_center.read()){
       Serial.println("Center button read");
         if (display.display_mode == RANGEVIZ){
             Serial.println("switch from range mode to menu");
@@ -141,11 +141,11 @@ void loop()
             // select menu mode
         }
     }
-    else if (button_down.read() && display.display_mode == MENU){
+    else if (button_down.read_toggle() && button_down.read() && display.display_mode == MENU){
         display.menu_mode = ((display.menu_mode + 1) % MODE_COUNT);
         display.display_menu(display.menu_mode);
     }
-    else if (button_up.read() && display.display_mode == MENU){
+    else if (button_up.read_toggle() && button_up.read() && display.display_mode == MENU){
         display.menu_mode = ((display.menu_mode + MODE_COUNT - 1) % MODE_COUNT);
         display.display_menu(display.menu_mode);
     }
