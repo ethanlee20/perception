@@ -6,8 +6,7 @@ class Button
         Button(const int pin)
             : pin{pin} {}
 
-        void initialize() 
-        {
+        void initialize(){
             pinMode(pin, INPUT);    // sets the digital pin as input to read switch
         }
 

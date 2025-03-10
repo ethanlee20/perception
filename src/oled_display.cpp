@@ -53,7 +53,7 @@ void OLED_Display::add_text(
     println(text);
 }
 
-void OLED_Display::display_menu(const int row) {
+void OLED_Display::display_menu(const int mode) {
     // Clear the buffer
     clearDisplay();
     default_display_menu();
@@ -62,7 +62,7 @@ void OLED_Display::display_menu(const int row) {
     
     // Display menu options with an arrow for the selected one
     for (int i = 0; i < 3; i++) {
-        if (i == row) {
+        if (i == mode) {
             delete_chars(0, i, 3);
             add_chars(0, i, "-> ");
             fillRect(0, i, screen_width, char_height, SSD1306_INVERSE);
@@ -71,6 +71,7 @@ void OLED_Display::display_menu(const int row) {
     
     // Write the buffer to the display
     display();
+    is_menu = true;
   }
 
 void OLED_Display::default_display_menu() {

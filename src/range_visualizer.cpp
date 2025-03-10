@@ -6,43 +6,46 @@
 // #include "oled_display.hpp"
 
 
-Range_Visualizer::Range_Visualizer(const float max_measured_radius) 
+Range_Visualizer::Range_Visualizer(float max_measured_radius) 
     : display(),
       max_measured_radius{ max_measured_radius },
-      max_pixel_radius{ (display.get_screen_height() / 2) - 1 } 
+      max_pixel_radius{ (display->get_screen_height() / 2) - 1 } 
 {}
 
-void Range_Visualizer::initialize()
-{
-    display.initialize();
+Range_Visualizer::Range_Visualizer(OLED_Display *d, float max_measured_radius) {
+    this->display = d;
+    this->max_measured_radius = max_measured_radius;
+    this->max_pixel_radius = (display->get_screen_height() / 2) - 1;
+}
+
+void Range_Visualizer::initialize(){
+    if (!display){
+        display->initialize();
+    }
+}
+
+void Range_Visualizer::clear(){
+    display->clear();
+    display->draw();
 }
 
 
-void Range_Visualizer::clear()
-{
-    display.clear();
-    display.draw();
-}
-
-
-void Range_Visualizer::draw_dot_at(float measured_radius, float measured_angle)
-{
+void Range_Visualizer::draw_dot_at(float measured_radius, float measured_angle){
     Polar_Vector_2D measured_position {measured_radius, measured_angle};
     Quantized_Cartesian_Vector_2D pixel_position = convert_to_pixel_position(
         measured_position
     );
-    display.add_pixel( // origin at middle of screen, +x is up, +y is right
-        pixel_position.get_x() + display.get_screen_width()/2, 
-        -pixel_position.get_y() + display.get_screen_height()/2
+    display->add_pixel( // origin at middle of screen, +x is up, +y is right
+        pixel_position.get_x() + display->get_screen_width()/2, 
+        -pixel_position.get_y() + display->get_screen_height()/2
     );
-    display.draw();
+    display->draw();
 }
 
 
 Quantized_Cartesian_Vector_2D Range_Visualizer::convert_to_pixel_position(
     Polar_Vector_2D measured_position
-)
-{
+){
     float scaled_radius = (
         max_pixel_radius
         / max_measured_radius

@@ -1,7 +1,7 @@
 
 // Neopixel class (convenience wrapper).
 
-#pragma once // see if this works
+#pragma once
 
 #include <Adafruit_NeoPixel.h>
 

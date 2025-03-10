@@ -6,7 +6,7 @@
 #include "src/servo_lidar.hpp"
 #include "src/tof_sensor.hpp"
 #include "src/button.hpp"
-
+#include "src/oled_display.hpp"
 
 // #include "src/piezo_buzzer.hpp"
 
@@ -15,24 +15,26 @@ const int servo_pin {5};
 const int led_pin {6};
 const int button_center_pin {7};
 const int button_down_pin {8};
-
-
-
-// PiezoBuzzer piezo_buzzer {piezo_buzzer_pin};
-Button button{button_center_pin};
-ServoLidar servo_lidar {servo_pin};
-Neopixel_LED led{led_pin};
-ToF_Sensor tof_sensor {}; //i2c
-
+const int button_up_pin {9};
 
 //random stuff
 const int servo_speed {0};
 float servo_angle = {0}; // radians
 const float max_measured_radius {100}; // max visible value we give to the min(width, height) of oled
-Range_Visualizer range_viz {max_measured_radius}; // just put the val here
 unsigned long lastLEDUpdate = 0;
 const unsigned long ledInterval = 2000; // 2000 milliseconds = 2 seconds
 int ledState = 0;
+
+
+// PiezoBuzzer piezo_buzzer {piezo_buzzer_pin};
+Button button_center{button_center_pin};
+Button button_down{button_down_pin};
+Button button_up{button_up_pin};
+ServoLidar servo_lidar {servo_pin};
+Neopixel_LED led{led_pin};
+ToF_Sensor tof_sensor {}; //i2c
+OLED_Display display {};
+Range_Visualizer range_viz {&display, max_measured_radius}; // just put the val here
 
 
 void setup() 
@@ -46,10 +48,13 @@ void setup()
     Serial.println("initializing");
     servo_lidar.initialize(); Serial.println("Servo done");
     tof_sensor.initialize(); Serial.println("TOF done");
-    range_viz.initialize(); Serial.println("Range visualizer done");
     led.initialize(); Serial.println("Neopixel done");
     // piezo_buzzer.initialize();Serial.println("Piezo buzzer done");
-    button.initialize(); Serial.println("Button center");
+    button_center.initialize(); Serial.println("Button center done");
+    button_down.initialize(); Serial.println("Button down done");
+    button_up.initialize(); Serial.println("Button up done");
+    display.initialize(); Serial.println("display done");
+    range_viz.initialize(); Serial.println("Range visualizer done");
     
     servo_lidar.set_speed(servo_speed);
     tof_sensor.startRangeContinuous();
@@ -74,7 +79,7 @@ void loop()
          Serial.println(measurement.TimeStamp);
          range_viz.draw_dot_at(measurement.RangeMilliMeter, servo_angle);
      } 
-         */
+    */
 
     //PIEZO BUZZER
 
@@ -119,6 +124,24 @@ void loop()
         
         // Update the LED state to the next color
         ledState = (ledState + 1) % 4;
+    }
+
+    if (button_center.read()){
+        if (!display.is_menu){
+            display.display_menu(1);
+            led.set_color(0, 0, 255);
+        }
+        else {
+            // select menu mode
+        }
+    }
+    else if (button_down.read() && display.is_menu){
+        display.menu_mode = static_cast<Mode>((display.menu_mode + 1) % MODE_COUNT);
+        display.display_menu(display.menu_mode);
+    }
+    else if (button_up.read() && display.is_menu){
+        display.menu_mode = static_cast<Mode>((display.menu_mode + MODE_COUNT - 1) % MODE_COUNT);
+        display.display_menu(display.menu_mode);
     }
 
     delay(1);
