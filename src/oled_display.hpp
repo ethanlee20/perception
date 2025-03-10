@@ -12,9 +12,16 @@
 #include <Adafruit_SSD1306.h>
 
 
-class OLED_Display 
-{
+class OLED_Display : public Adafruit_SSD1306 {
     public:
+
+        OLED_Display() : Adafruit_SSD1306(
+            screen_width,
+            screen_height,
+            &Wire,
+            reset_pin
+        ) {}
+
         void initialize();
         void draw();
         void clear();
@@ -29,17 +36,10 @@ class OLED_Display
         int get_screen_height(){return screen_height;}
 
     private:
-        const int device_address = 0x3C;
-        const int reset_pin = -1;
-        const int screen_width = 128;
-        const int screen_height = 64;
-        Adafruit_SSD1306 display {
-            screen_width, 
-            screen_height, 
-            &Wire, 
-            reset_pin
-        };
-        
+        static constexpr int device_address = 0x3C;
+        static constexpr int reset_pin = -1;
+        static constexpr int screen_width = 128;
+        static constexpr int screen_height = 64;
 };
 
 #endif

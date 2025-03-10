@@ -8,40 +8,39 @@
 #include "oled_display.hpp"
 
 
-void OLED_Display::initialize()
-{
-    bool success = display.begin(SSD1306_SWITCHCAPVCC, device_address);
+void OLED_Display::initialize() {
+    bool success = begin(SSD1306_SWITCHCAPVCC, device_address);
 
     while (!success) {
         Serial.println(F("Display sensor init failed. Tryin again("));
         delay(100);
-        success = display.begin();
+        success = begin();
     }
 
-    display.cp437(true); // set font
+    cp437(true); // set font
 
-    display.display(); // adafruit logo screen
+    display(); // adafruit logo screen
     delay(2000);
-    display.clearDisplay();
-    display.display();
+    clearDisplay();
+    display();
 }
 
 
 void OLED_Display::draw()
 {
-    display.display();
+    display();
 }
 
 
 void OLED_Display::clear()
 {
-    display.clearDisplay();
+    clearDisplay();
 }
 
 
 void OLED_Display::add_pixel(int x, int y)
 {
-    display.drawPixel(x, y, SSD1306_WHITE);
+    drawPixel(x, y, SSD1306_WHITE);
 }
 
 
@@ -49,8 +48,8 @@ void OLED_Display::add_text(
     String text, int x, int y, int scale
 )
 {
-    display.setTextSize(scale);
-    display.setTextColor(SSD1306_WHITE);
-    display.setCursor(x, y);
-    display.println(text);
+    setTextSize(scale);
+    setTextColor(SSD1306_WHITE);
+    setCursor(x, y);
+    println(text);
 }
