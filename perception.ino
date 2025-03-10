@@ -23,8 +23,23 @@ const float max_measured_radius {100}; // max visible value we give to the min(w
 unsigned long lastLEDUpdate = 0;
 const unsigned long ledInterval = 2000; // 2000 milliseconds = 2 seconds
 int ledState = 0;
-int songTones[] = {440, 494, 523, 0, 523, 494, 440};
-unsigned long songDurations[] = {500, 500, 500, 250, 500, 500, 500};
+unsigned long D3 = 146.8;
+unsigned long D3_sharp = 155.6;
+unsigned long F3 = 174.6;
+unsigned long F3_sharp = 185.0;
+unsigned long G3 = 196.0;
+unsigned long G3_sharp = 207.7;
+unsigned long C4 = 261.6; //middle C
+unsigned long C4_sharp = 277.2;
+unsigned long D4 = 293.7;
+unsigned long D4_sharp = 311.1;
+unsigned long F4 = 349.2;
+unsigned long F4_sharp = 370.0;
+
+int quarter_note = 500;
+int eight_note = quarter_note / 2;
+int songTones[] = {D4_sharp, F4, C4_sharp, D4_sharp, F4_sharp, F4, C4_sharp, D4_sharp};
+unsigned long songDurations[] = {quarter_note, eight_note, quarter_note, quarter_note * 5, quarter_note, eight_note, quarter_note, quarter_note * 5};
 int songLength = sizeof(songTones) / sizeof(songTones[0]);
 
 
