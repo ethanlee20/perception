@@ -1,7 +1,5 @@
 
 // OLED display
-
-
 #ifndef oled_display_h
 #define oled_display_h
 
@@ -28,6 +26,9 @@ namespace Menu {
         MODE_COUNT
     };
 }
+
+// A helper function that returns a string representation of the enum value.
+const char* menu_mode_to_str(Menu::Mode mode);
 
 class OLED_Display : public Adafruit_SSD1306 {
     public:

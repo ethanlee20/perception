@@ -7,6 +7,20 @@
 #include <Adafruit_SSD1306.h>
 #include "../src/oled_display.hpp"
 
+const char* menu_mode_to_str(Menu::Mode mode) {
+    if (mode == Menu::CLEAR_POINTCLOUD){
+        return "   clear pointcloud"; 
+    }
+    else if (mode == Menu::SAVED_POINTCLOUD){
+        return "   save pointcloud"; 
+    }
+    else if (mode == Menu::SONG_PLAYLIST){
+        return "   song playlist"; 
+    }
+    else if (mode == Menu::STOP_GATHERING){
+        return "   stop SL"; 
+    }
+}
 
 void OLED_Display::initialize() {
     bool success = begin(SSD1306_SWITCHCAPVCC, device_address);
@@ -78,10 +92,10 @@ void OLED_Display::default_display_menu() {
     clearDisplay();
     // Display the header
     setCursor(0, 0);
-    println("   Save pointcloud"); // Padding for unselected options
-    println("   Clear pointcloud");
-    println("   Song Playlist");
-    println("   Exit");
+    for (int i = 0; i < Menu::MODE_COUNT; i++) {
+        Menu::Mode mode = static_cast<Menu::Mode>(i);
+        println(menu_mode_to_str(mode));
+    }
 }
 
 void OLED_Display::delete_chars(int x, int y, int range){
