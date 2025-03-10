@@ -65,7 +65,7 @@ void setup()
 void loop() 
 {   
 
-    if (display.display_mode == RANGEVIZ && tof_sensor.isRangeComplete()) {
+    if (display.display_mode == Display::RANGEVIZ && tof_sensor.isRangeComplete()) {
         uint16_t distance = tof_sensor.readRange();
         Serial.print("Distance (mm): "); Serial.println(distance);
         range_viz.draw_dot_at(distance, servo_angle);
@@ -128,25 +128,25 @@ void loop()
 
     if (button_center.read_toggle() && button_center.read()){
       Serial.println("Center button read");
-        if (display.display_mode == RANGEVIZ){
+        if (display.display_mode == Display::RANGEVIZ){
             Serial.println("switch from range mode to menu");
-            display.display_menu(1);
+            display.display_menu();
             led.set_color(0, 0, 255);
-            display.display_mode = MENU;
+            display.display_mode = Display::MENU;
         }
         else { // we're in menu mode. for now just clear
             Serial.println("switch from menu mode to range");
             display.clearDisplay();
-            display.display_mode = RANGEVIZ;
+            display.display_mode = Display::RANGEVIZ;
             // select menu mode
         }
     }
-    else if (button_down.read_toggle() && button_down.read() && display.display_mode == MENU){
-        display.menu_mode = ((display.menu_mode + 1) % MODE_COUNT);
+    else if (button_down.read_toggle() && button_down.read() && display.display_mode == Display::MENU){
+        display.menu_mode = ((display.menu_mode + 1) % Menu::MODE_COUNT);
         display.display_menu(display.menu_mode);
     }
-    else if (button_up.read_toggle() && button_up.read() && display.display_mode == MENU){
-        display.menu_mode = ((display.menu_mode + MODE_COUNT - 1) % MODE_COUNT);
+    else if (button_up.read_toggle() && button_up.read() && display.display_mode == Display::MENU){
+        display.menu_mode = ((display.menu_mode + Menu::MODE_COUNT - 1) % Menu::MODE_COUNT);
         display.display_menu(display.menu_mode);
     }
 

@@ -61,11 +61,11 @@ void OLED_Display::display_menu(const int mode) {
     display();
     
     // Display menu options with an arrow for the selected one
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < Menu::MODE_COUNT; i++) {
         if (i == mode) {
             delete_chars(0, i, 3);
             add_chars(0, i, "-> ");
-            fillRect(0, i, screen_width, char_height, SSD1306_INVERSE);
+            fillRect(0, i * char_height * scale, screen_width, char_height, SSD1306_INVERSE);
         }
     }
     
@@ -78,8 +78,6 @@ void OLED_Display::default_display_menu() {
     clearDisplay();
     // Display the header
     setCursor(0, 0);
-    println("Select Option:");
-
     println("   Save pointcloud"); // Padding for unselected options
     println("   Clear pointcloud");
     println("   Song Playlist");
