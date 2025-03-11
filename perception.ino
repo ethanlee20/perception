@@ -69,7 +69,7 @@ void setup()
     servo_lidar.initialize(); Serial.println("Servo done");
     tof_sensor.initialize(); Serial.println("TOF done");
     led.initialize(); Serial.println("Neopixel done");
-    // piezo_buzzer.initialize();Serial.println("Piezo buzzer done");
+    piezo_buzzer.initialize();Serial.println("Piezo buzzer done");
     button_center.initialize(); Serial.println("Button center done");
     button_down.initialize(); Serial.println("Button down done");
     button_up.initialize(); Serial.println("Button up done");
@@ -118,7 +118,6 @@ void loop()
 
     // Check if it's time to change the LED color
     
-    /*
     unsigned long currentMillis = millis();
     if (currentMillis - lastLEDUpdate >= ledInterval) {
         lastLEDUpdate = currentMillis;
