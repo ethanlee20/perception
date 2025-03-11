@@ -8,6 +8,7 @@
 #include "src/button.hpp"
 #include "src/oled_display.hpp"
 #include "src/piezo_buzzer.hpp"
+#include "src/mic.hpp"
 
 const int piezo_buzzer_pin {3};
 const int servo_pin {5};
@@ -15,6 +16,7 @@ const int led_pin {6};
 const int button_center_pin {7};
 const int button_down_pin {8};
 const int button_up_pin {9};
+const int mic_pin {0};
 
 //random stuff
 const int servo_speed {0};
@@ -52,6 +54,7 @@ Neopixel_LED led{led_pin};
 ToF_Sensor tof_sensor {}; //i2c
 OLED_Display display {};
 Range_Visualizer range_viz {&display, max_measured_radius}; // just put the val here
+Mic mic(0);
 
 
 void setup() 
@@ -114,6 +117,8 @@ void loop()
 
 
     // Check if it's time to change the LED color
+    
+    /*
     unsigned long currentMillis = millis();
     if (currentMillis - lastLEDUpdate >= ledInterval) {
         lastLEDUpdate = currentMillis;
@@ -145,6 +150,22 @@ void loop()
         // Update the LED state to the next color
         ledState = (ledState + 1) % 4;
     }
+    
+    
+    /*
+    // MIC
+    double sample = mic.sample();
+    if (sample != -1 && sample > 0.1){
+      Serial.print("Audio level: ");
+      Serial.println(sample);
+      led.set_color(155, 0, 255);
+      led.show();
+    }
+    else if (sample !=1 && sample < 0.1){
+      led.set_color(40, 20, 70);
+      led.show();
+    }
+    */
 
     if (button_center.read_toggle() && button_center.read()){
       Serial.println("Center button read");
