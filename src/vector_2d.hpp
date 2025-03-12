@@ -6,6 +6,7 @@
 #ifndef vector_2d_h
 #define vector_2d_h
 
+#include <cmath>
 
 class Quantized_Cartesian_Vector_2D 
 {
@@ -48,5 +49,11 @@ class Polar_Vector_2D
 };
 
 
+Cartesian_Vector_2D apply_homogeneous_transformation(
+    Polar_Vector_2D point_in_ref,
+    double rotation_offset_deg,
+    double translation_offset_x,
+    double translation_offset_y
+);
 
 #endif
